@@ -18,6 +18,13 @@ distance_threshold = 0.4 # distance threshold
 gold_token_list = [] # array to store the code of gold tokeens
 
 
+# drive the robot forward/backwards
+def drive(speed, seconds):
+	my_robot.motors[0].m0.power = speed
+	my_robot.motors[0].m1.power = speed
+	time.sleep(seconds)
+	my_robot.motors[0].m0.power = 0
+	my_robot.motors[0].m1.power = 0
 
 
 while 1:
