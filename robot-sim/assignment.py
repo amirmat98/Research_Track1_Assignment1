@@ -52,7 +52,7 @@ def search_gold_token():
 			
 	if distance >= 100:
 	
-		return -1 , -1 ,token_code
+		return -1 , -1 , -1
 	
 	else:
 		return distance, rotation_y ,token_code
@@ -110,10 +110,8 @@ def release_golden_token():
 	    distance , rotation_y , token_code = find_token_location()  # we look for closest gold token which was droped previously
 	    
 	    if distance < distance_threshold + 0.2:  # if the robot is close enough to the drop location the while loop is stopped so the robot can release the box
-	    
 	    # The value 0.2 is defined so that the robot releases the box it holds a small distance away from the target box
 		print("Found a drop location!")	 
-		
 		flag = 0
 	    elif -angle_threshold <= rotation_y <= angle_threshold: # if the robot is well aligned with the drop location, we go forward
 		print("Going forward!.")
@@ -176,7 +174,7 @@ def main():
 			turn(5,2)
 			new_distance , new_rotation_y , new_token_code = find_token_location()
 			
-		Release_Grabbed_Gold()
+		release_golden_token()
 		my_robot.release()
 		print("Package Delivered")
 		drive(-10,2)
@@ -184,4 +182,7 @@ def main():
 		
 		# The code of the dropped box is added to the List before starting a new search and grap 
 		search_gold_token.append(token_code)
+		
+		
+main()
 
