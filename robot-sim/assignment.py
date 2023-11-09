@@ -2,21 +2,25 @@
 Descriptions
 """
 
+#--------------------------------------------------------------------------
+
 #import libraries
 from __future__ import print_function # for print()
+import os # for clearing the screen
 import time # for time.sleep()
 from sr.robot import * # for robot object
 
+#--------------------------------------------------------------------------
 
 # define global variables
-my_robot = Robot() # robot object
+my_robot = Robot()
 my_time = 0.5 # turn and drive time
 my_speed = 25 # turn and drive speed
 angle_threshold = 2.0 # angle threshold
 distance_threshold = 0.4 # distance threshold
-#silver_token_list = [] # array to store the code of collected silver tokens
 gold_token_list = [] # array to store the code of gold tokeens
 
+#--------------------------------------------------------------------------
 
 # drive the robot forward/backwards
 def drive(speed, seconds):
@@ -25,8 +29,9 @@ def drive(speed, seconds):
 	time.sleep(seconds)
 	my_robot.motors[0].m0.power = 0
 	my_robot.motors[0].m1.power = 0
-	
-	
+
+#--------------------------------------------------------------------------
+
 # turn the robot left/right
 def turn(speed, seconds):
 	my_robot.motors[0].m0.power = speed
@@ -35,28 +40,7 @@ def turn(speed, seconds):
 	my_robot.motors[0].m0.power = 0
 	my_robot.motors[0].m1.power = 0
 
-#This Function to find the closest Golden Box with no elements in the list "gold_token_list"
-# return: distance, angle and code of the nearest token
-def search_gold_token():
-	distance = 100
-	rotation_y = 0
-	token_code = -1
-	
-	for token in my_robot.see():
-		# if the token is unmarked and in the range of the robot, update the distance, angle and code of token
-		if token.dist<distance and token.info.marker_type == MARKER_TOKEN_GOLD and token.info.code not in gold_token_list:   
-			distance = token.dist
-			token_code = token.info.code
-			rotation_y = token.rot_y
-		
-			
-	if distance >= 100:
-	
-		return -1 , -1 , -1
-	
-	else:
-		return distance, rotation_y ,token_code
-		
+#--------------------------------------------------------------------------
 
 #This Function find the closest token nearby (among the tokens that were previously grabbed and put next to each other)
 def find_token_location():
@@ -76,7 +60,10 @@ def find_token_location():
 	
 	else:
 		return distance, rotation_y ,token_code
-		
+
+
+
+#--------------------------------------------------------------------------
 
 #This Function move towards the closet token nearby
 def gold_grab():
@@ -101,7 +88,10 @@ def gold_grab():
 	    elif rotation_y > angle_threshold:
 		print("Right a bit...")
 		turn(+2, 0.5)
-	
+
+
+#--------------------------------------------------------------------------
+
 #This function to move towards the closest drop location ( The closest token which was previously moved and relocated)	
 def release_golden_token():
 
@@ -122,7 +112,88 @@ def release_golden_token():
 	    elif rotation_y > angle_threshold:
 		print("Right a bit...")
 		turn(+2, 0.5)	
+
+
+
+#--------------------------------------------------------------------------
+
+#This Function to find the closest Golden token with no elements in the list "gold_token_list"
+# return: distance, angle and code of the nearest token
+def search_gold_token():
+	distance = 100
+	rotation_y = 0
+	token_code = -1
+	
+	for token in my_robot.see():
+		# if the token is unmarked and in the range of the robot, update the distance, angle and code of token
+		if token.dist<distance and token.info.marker_type == MARKER_TOKEN_GOLD and token.info.code not in gold_token_list:   
+			distance = token.dist
+			token_code = token.info.code
+			rotation_y = token.rot_y
 		
+			
+	if distance >= 100:
+	
+		return -1 , -1 , -1
+	
+	else:
+		return distance, rotation_y ,token_code
+		
+#--------------------------------------------------------------------------
+
+# interface function
+# this function prints the robot's interface
+# it takes a command as input and prints the corresponding message
+def interface(command):
+	os.system('clear')
+	print('###################################################################')
+	print("##                         Robot's interface                     ##")
+	print('###################################################################\n\n')
+
+	if command is "start":
+		print('Lets put sliver tokens next to the gold tokens')
+		time.sleep(2)
+
+	if command is "notoken":
+		print('Ops there is no token in my range!!!')
+
+	elif command is "goldtoken":
+		print('I found a gold token')
+
+	elif command is "nogoldtoken":
+		print('ther is no gold token in my range!!!')
+
+	elif command is "deliver":
+		print('I am delivering the silver token next to the gold token')
+
+	elif command is "silvertoken":
+		print('I found a silver token')
+
+	elif command is "nosilvertoken":
+		print('Ops there is no silver token in my range!!!')
+
+	elif command is "grab":
+		print('I grabbed the silver token \nLets deliver it to a gold token')
+
+	elif command is "release":
+		print('Yes.. I put the silver token next to the gold token')
+
+	elif command is "problem":
+		print('Ops there is a problem, I cannot grab the token!!!')
+
+	elif command is "left":
+		print("I am turning left a bit")
+
+	elif command is "right":
+		print("I am turning right a bit")
+
+	elif command is "finish":
+		print("I delivered silver all tokens successfully!!!")
+
+
+#--------------------------------------------------------------------------
+
+
 def main():
 
 	distance , rotation_y , token_code = search_gold_token() # The robot tries to find the closest golden token
@@ -181,8 +252,9 @@ def main():
 		turn(30,2)
 		
 		# The code of the dropped box is added to the List before starting a new search and grap 
-		search_gold_token.append(token_code)
+		gold_token_list.append(token_code)
 		
-		
+#--------------------------------------------------------------------------
+
 main()
 
