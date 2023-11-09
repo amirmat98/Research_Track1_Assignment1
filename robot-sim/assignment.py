@@ -15,7 +15,9 @@ from sr.robot import * # for robot object
 # define global variables
 my_robot = Robot()
 my_time = 0.5 # turn and drive time
-my_speed = 25 # turn and drive speed
+my_speed = 30 # drive speed
+my_turn_speed = 20 # turn speed
+my_align_speed = 2 # align speed
 angle_threshold = 2.0 # angle threshold
 distance_threshold = 0.4 # distance threshold
 gold_token_list = [] # array to store the code of gold tokeens
@@ -79,7 +81,7 @@ def gold_grab():
 		
 	    elif -angle_threshold<= rotation_y <= angle_threshold: # if the robot is well aligned with the token but not close, we go forward to reach it
 		print("Going forward!.")
-		drive(10, 0.5)
+		drive(my_speed, my_time)
 		
 	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the token, we move it on the left or on the right until it's aligned
 		print("Left a bit...")
@@ -105,7 +107,7 @@ def release_golden_token():
 		flag = 0
 	    elif -angle_threshold <= rotation_y <= angle_threshold: # if the robot is well aligned with the drop location, we go forward
 		print("Going forward!.")
-		drive(10, 0.5)
+		drive(my_speed, 0.5)
 	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the drop location, we move it on the left or on the right
 		print("Left a bit...")
 		turn(-2, 0.5)
@@ -214,7 +216,7 @@ def main():
 	print("Package Delivered")
 	
 	# The robot moves backward a little to avoid hitting the token it dropped and turns 360 degrees to start looking for a new token
-	drive(-10 , 2)
+	drive(-my_speed , 2)
 	turn(30,2)
 	
 	#The code of the token that was just dropped is added to the list so that the robot looks for other tokens in the next steps
@@ -248,7 +250,7 @@ def main():
 		release_golden_token()
 		my_robot.release()
 		print("Package Delivered")
-		drive(-10,2)
+		drive(-my_speed,2)
 		turn(30,2)
 		
 		# The code of the dropped box is added to the List before starting a new search and grap 
