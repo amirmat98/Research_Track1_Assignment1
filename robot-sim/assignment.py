@@ -44,6 +44,59 @@ def turn(speed, seconds):
 
 #--------------------------------------------------------------------------
 
+# interface function
+# this function prints the robot's interface
+# it takes a command as input and prints the corresponding message
+def interface(command):
+	os.system('clear')
+	print('###################################################################')
+	print("##                         Robot's interface                     ##")
+	print('###################################################################\n\n')
+
+	if command is "start":
+		print('Lets put sliver tokens next to the gold tokens')
+		time.sleep(2)
+
+	if command is "no_gold_token":
+		print('Ops there is no golden token in my range!!!')
+
+	elif command is "goldtoken":
+		print('I found a gold token')
+
+
+	elif command is "deliver":
+		print("I am delivering the golden token")
+	
+	elif command is "forward":
+		print("Let's Going Forward!")
+
+	elif command is "grab":
+		print("I grabbed the gold token \nLet's deliver it")
+		
+	elif command is "find_location":
+		print("I Found a location for droping the token!")
+		
+	elif command is "find_destination":
+		print("I have to search more for a destination!!")
+		
+		
+	elif command is "release":
+		print("I am at Destination... I release the package ")
+
+	elif command is "problem":
+		print('Ops there is a problem, I cannot grab the token!!!')
+
+	elif command is "left":
+		print("I am turning left a bit")
+
+	elif command is "right":
+		print("I am turning right a bit")
+
+	elif command is "finish":
+		print("I delivered silver all tokens successfully!!!")
+
+#--------------------------------------------------------------------------
+
 #This Function find the closest token nearby (among the tokens that were previously grabbed and put next to each other)
 def find_token_location():
 	distance = 100
@@ -76,19 +129,19 @@ def gold_grab():
 	    distance, rotation_y ,token_code = search_gold_token()  # we look for gold tokens
 	    
 	    if distance <= distance_threshold: # if the robot is close enough to the token the while loop is stopped so it can grab the token 
-		print("Found a Gold one!")	 
+		interface("goldtoken") 
 		token_flag = 0
 		
 	    elif -angle_threshold<= rotation_y <= angle_threshold: # if the robot is well aligned with the token but not close, we go forward to reach it
-		print("Going forward!.")
+		interface("forward") 
 		drive(my_speed, my_time)
 		
 	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the token, we move it on the left or on the right until it's aligned
-		print("Left a bit...")
+		interface("left") 
 		turn(-2, 0.5)
 		
 	    elif rotation_y > angle_threshold:
-		print("Right a bit...")
+		interface("right") 
 		turn(+2, 0.5)
 
 
@@ -103,16 +156,16 @@ def release_golden_token():
 	    
 	    if distance < distance_threshold + 0.2:  # if the robot is close enough to the drop location the while loop is stopped so the robot can release the box
 	    # The value 0.2 is defined so that the robot releases the box it holds a small distance away from the target box
-		print("Found a drop location!")	 
+		interface("find_location") 	 
 		flag = 0
 	    elif -angle_threshold <= rotation_y <= angle_threshold: # if the robot is well aligned with the drop location, we go forward
-		print("Going forward!.")
+		interface("forward")
 		drive(my_speed, 0.5)
 	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the drop location, we move it on the left or on the right
-		print("Left a bit...")
+		interface("left") 
 		turn(-2, 0.5)
 	    elif rotation_y > angle_threshold:
-		print("Right a bit...")
+		interface("right")
 		turn(+2, 0.5)	
 
 
@@ -141,56 +194,6 @@ def search_gold_token():
 	else:
 		return distance, rotation_y ,token_code
 		
-#--------------------------------------------------------------------------
-
-# interface function
-# this function prints the robot's interface
-# it takes a command as input and prints the corresponding message
-def interface(command):
-	os.system('clear')
-	print('###################################################################')
-	print("##                         Robot's interface                     ##")
-	print('###################################################################\n\n')
-
-	if command is "start":
-		print('Lets put sliver tokens next to the gold tokens')
-		time.sleep(2)
-
-	if command is "notoken":
-		print('Ops there is no token in my range!!!')
-
-	elif command is "goldtoken":
-		print('I found a gold token')
-
-	elif command is "nogoldtoken":
-		print('ther is no gold token in my range!!!')
-
-	elif command is "deliver":
-		print('I am delivering the silver token next to the gold token')
-
-	elif command is "silvertoken":
-		print('I found a silver token')
-
-	elif command is "nosilvertoken":
-		print('Ops there is no silver token in my range!!!')
-
-	elif command is "grab":
-		print('I grabbed the silver token \nLets deliver it to a gold token')
-
-	elif command is "release":
-		print('Yes.. I put the silver token next to the gold token')
-
-	elif command is "problem":
-		print('Ops there is a problem, I cannot grab the token!!!')
-
-	elif command is "left":
-		print("I am turning left a bit")
-
-	elif command is "right":
-		print("I am turning right a bit")
-
-	elif command is "finish":
-		print("I delivered silver all tokens successfully!!!")
 
 
 #--------------------------------------------------------------------------
@@ -200,20 +203,21 @@ def main():
 
 	distance , rotation_y , token_code = search_gold_token() # The robot tries to find the closest golden token
 	while distance == -1:  # In case the robot can not find a golden token, it keeps turning and surching until it finds one 
-		print("I have to search more for a gold box!!")
+		interface("no_gold_token")
 		turn(5,2)
 		distance , rotation_y , token_code = search_gold_token()
 	
 	# The robot moves toward the closest golden token and grabs it
 	gold_grab()  
 	my_robot.grab()
-	print("Just grabbed it")
+	interface("grab")
 	
 	# The robot turns and moves forward to a random drop location and releases the token
 	turn(-10,1.1)
+	interface("deliver")
 	drive(10 , 19)
 	my_robot.release()
-	print("Package Delivered")
+	interface("release")
 	
 	# The robot moves backward a little to avoid hitting the token it dropped and turns 360 degrees to start looking for a new token
 	drive(-my_speed , 2)
@@ -230,12 +234,12 @@ def main():
 		# The robot moves toward the closest golden token and grabs it
 		distance , rotation_y , token_code = search_gold_token()
 		while distance == -1:
-			print("I have to search more for a gold box!!")
+			interface("no_gold_token")
 			turn(5,2)
 			distance , rotation_y , token_code = search_gold_token()
 		gold_grab()
 		my_robot.grab()
-		print("Just grabbed it")
+		interface("grab")
 		
 		# The robot finds a drop location for the token it's holding
 		new_distance , new_rotation_y , new_token_code = find_token_location()
@@ -243,13 +247,13 @@ def main():
 		# The robot keeps turning until it finds the group of tokens that were put together before and bribgs the token there
 		# for the first round of the loop it brings the box to the reference box which was initially moved
 		while new_distance == -1:
-			print("I have to search more for a destination!!")
+			interface("find_destination")
 			turn(5,2)
 			new_distance , new_rotation_y , new_token_code = find_token_location()
 			
 		release_golden_token()
 		my_robot.release()
-		print("Package Delivered")
+		interface("release")
 		drive(-my_speed,2)
 		turn(30,2)
 		
