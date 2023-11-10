@@ -9,15 +9,14 @@ First assignment of Research Track 1 course
 -----------------------------------------------------------------------------------------
 
 # Table of Contents
-- [Research_Track 1_First_Assignment ](#Research_Track1_First_Assignment )
+- [Aims of the Research_Track1_First_Assignment](#Aims of the Research_Track1_First_Assignment)
 - [Installing and running](#Installing&running)
-- [Exercise](#Exercise)
 - [Troubleshooting](#Troubleshooting)
 - [Robot_API](#Robot_API)
 	- [Motors](##Motors)
 	- [Grabber](##Grabber)
 	- [Vision](##Vision)
-- [Coding](#Coding)
+- [How it works](#How it works)
 	- [drive](##drive)
 	- [turn](##turn)
 	- [Gold_find](##Gold_find)
@@ -25,13 +24,19 @@ First assignment of Research Track 1 course
 	- [Gold_grab](##Gold_grab)
 	- [Release_Grabbed_Gold](##Release_Grabbed_Gold)
 	- [main](##main)
+- [Possible improvements](#possible_improvements)
 
 
 
-### Research_Track1_First_Assignment 
+## Aims of the Research_Track1_First_Assignment 
 
-This is the first assignment of Research track 1. The goal of this assignment is to gather all the golden boxes in one location next to each other. The environemnt and the initial and final configuration and formation of the boxes can be seen in Figure 1 and Figure2.  The portable robot simulator is used for this assignment which is developed by [Student Robotics](https://studentrobotics.org). 
+[Student Robotics](https://studentrobotics.org) has designed a straightforward and portable robot simulator. 
+Arena has undergone modifications for the first assignment of the Research Track I course. 
+The objective of this task is to collect all the golden 'tokens' and place them in close proximity to one another.   The environment, as well as the initial and final arrangement and formation of the 'tokens', are depicted in Figure 1 and Figure 2, respectively. 
 
+<p align="center">
+  <img src="https://github.com/PeymanPP5530/research-track-1-assignment1/blob/main/README%20images/initial.png?raw=true" />
+</p>
 
 
 ![](sr/First_Config.png)
@@ -43,20 +48,40 @@ This is the first assignment of Research track 1. The goal of this assignment is
 ![](sr/Flowchart.png)
 > Figure3) Flowchart of the algorithm
 
-Installing&running
-----------------------
-The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org/) library, [PyPyBox2D](https://pypi.python.org/pypi/pypybox2d/2.1-r331), and [PyYAML](https://pypi.python.org/pypi/PyYAML/). Pygame, unfortunately, can be tricky (though [not impossible](http://askubuntu.com/q/312767)) to install in virtual environments. If you are using `pip`, you might try `pip install hg+https://bitbucket.org/pygame/pygame`, or you could use your operating system's package manager. Windows users could use [Portable Python](http://portablepython.com/). PyPyBox2D and PyYAML are more forgiving, and should install just fine using `pip` or `easy_install`.
+##Installing&running
 
-## Exercise
------------------------------
 
-To run one or more scripts in the simulator, use `run.py`, passing it the file names. 
+The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org/) library, [PyPyBox2D](https://pypi.python.org/pypi/pypybox2d/2.1-r331), and [PyYAML](https://pypi.python.org/pypi/PyYAML/).
 
-you can run the program with:
+Pygame, unfortunately, can be tricky (though [not impossible](http://askubuntu.com/q/312767)) to install in virtual environments. If you are using `pip`, you might try `pip install hg+https://bitbucket.org/pygame/pygame`, or you could use your operating system's package manager. Windows users could use [Portable Python](http://portablepython.com/). PyPyBox2D and PyYAML are more forgiving, and should install just fine using `pip` or `easy_install`.
 
-```bash
-$ python2 run.py assignment.py
+**Open a shell and execute the following command:**
+```shell
+sudo apt-get udpate
+sudo apt-get install git
+sudo apt-get install python-dev python-pip python-pygame
+sudo pip install pypybox2d
 ```
+Now, you should [download](https://github.com/amirmat98/Research_Track1_Assignment1.git "download") a simple robotic simulator with the solution:
+```shell
+cd
+git clone https://github.com/amirmat98/Research_Track1_Assignment1.git
+```
+Then, move to the simulator folder:
+```shell
+cd ~/Research_tTrack1_Assignment1/robot-sim
+```
+Now, run the simulation:
+```shell
+python2 run.py assignment.py
+```
+The following simulation will be shown:
+
+<p align="center">
+  <img src="https://github.com/PeymanPP5530/research-track-1-assignment1/blob/main/README%20images/initial.png?raw=true" />
+</p>
+
+
 
 ## Troubleshooting
 
@@ -67,9 +92,9 @@ On Ubuntu, this can be accomplished by:
 * Get the location. In my case this was `/usr/local/lib/python2.7/dist-packages`
 * Create symlink: `ln -s path/to/simulator/sr/robot /usr/local/lib/python2.7/dist-packages/sr/`
 
+When utilizing Docker in lieu of Ubuntu, the simulator will function without encountering any errors. 
 
-Robot_API
----------
+##Robot_API
 
 The API for controlling a simulated robot is designed to be as similar as possible to the [SR API][sr-api].
 
@@ -129,223 +154,244 @@ for m in markers:
     elif m.info.marker_type == MARKER_ARENA:
         print " - Arena marker {0} is {1} metres away".format( m.info.offset, m.dist )
 ```
-Coding
-----------------------
-As mentioned above, the goal of this assignment is for the robot to put all the golden boxes next to each other. For this reason a few functions are defined to make the code more smooth and understandable.
-At first two parameters are defined as thresholds. `a_th` and `d_th` are the angle and distance threshold, respectively. These parameters can help the robot know when it's close enough to the target so that it can grab the target.
-An empty list named `GrabbedGold` is defined. The code corresponding to the relocated box is added to this list to help the robot understand which boxes are relocated and it can ignore them when searching for new boxes to grab.
+##How it works
+
+The objective of this task is for the robot to arrange all the golden 'tokens' in close proximity to one another.   To enhance the code's fluidity and comprehensibility, certain functions are defined. 
+The initial two parameters are defined as thresholds.   The variables `angle_thresholds` and `distance_threshold` represent the threshold values for angles and distances, respectively.   These factors enable the robot to determine its proximity to the target, allowing it to seize the target when it reaches a suitable distance. 
+A list called `gold_token_list` is created with no elements.   The code associated with the relocated token is appended to this list to facilitate the robot's comprehension of which tokens have been relocated, allowing it to disregard them during the search for new tokens to grasp. 
+
 The defined functions for this assignment are as follows:
 
 - drive
 - turn
-- Gold_find()
-- Release_Loc_Find()
-- Gold_grab()
-- Release_Grabbed_Gold()
+- search_gold_token
+- find_token_location
+- gold_grab
+- release_golden_token
+- interface
+- main
 
 Each function is described here and then the main code which uses all the functions for the goal is presented and described.
 
 ### drive ###
 
-the drive(speed, seconds) function was created to allow the robot to move straight. It get two inputs: `speed` and `seconds`. It will move with the power `speed` for a duration of `seconds`. it can go forward, giving to `speed` parameter a positive value, or it can go backward giving to `speed` parameter a negative value.
-- speed: the linear velocity that we want the robot to assume. 
-- seconds: the amount of seconds we want to drive.
+The purpose of the drive(speed, seconds) function is to enable the robot to move in a straight line.   The function receives two inputs: `speed` and `seconds`.   The object will undergo motion at a velocity of `speed` for a period of `seconds`.   The object can move in the forward direction by assigning a positive value to the `speed` parameter, or it can move in the reverse direction by assigning a negative value to the `speed` parameter. 
+- 'speed': the desired magnitude of the robot's linear velocity.
+- 'second' represents the desired duration of the driving time, measured in seconds. 
+
 
 ```python
 def drive(speed, seconds):
-
-	R.motors[0].m0.power = speed
-	R.motors[0].m1.power = speed
+	my_robot.motors[0].m0.power = speed
+	my_robot.motors[0].m1.power = speed
 	time.sleep(seconds)
-	R.motors[0].m0.power = 0
-	R.motors[0].m1.power = 0
+	my_robot.motors[0].m0.power = 0
+	my_robot.motors[0].m1.power = 0
+	
 ```
 
 ### turn ###
 
-The turn(speed, seconds) functions give the robot the ability to spin around itself. It's done by giving the right and left motors equal speeds with different signs. It get two inputs: `speed` and `seconds`. It will move with the power `speed` for a duration of `seconds`.
+The turn(speed, seconds) operations provide the robot with the capability to rotate in place.   The task is accomplished by setting the speeds of the right and left motors to be equal, but with opposite signs.   The function receives two inputs: `speed` and `seconds`.   The object will undergo linear motion at a velocity of `speed` for a period of `seconds`. 
+
 
 ```python
 def turn(speed, seconds):
-
-    R.motors[0].m0.power = speed
-    R.motors[0].m1.power = -speed
-    time.sleep(seconds)
-    R.motors[0].m0.power = 0
-    R.motors[0].m1.power = 0
+	my_robot.motors[0].m0.power = speed
+	my_robot.motors[0].m1.power = -speed
+	time.sleep(seconds)
+	my_robot.motors[0].m0.power = 0
+	my_robot.motors[0].m1.power = 0
 ```
-### Gold_find ###
+### search_gold_token ###
 
-The function  `Gold_find()` looks for the closest golden box and returns its distance (`dist`), angle (`rot_y`), and code (`Code`) with respect to the robot as output. In this function, the robot looks for golden boxes which are not removed before (Their code is not in the `GrabbedGold` list). In case it does not find a golden box, the function returns `-1` as output for all three parameters. The code is as follows:
+The `search_gold_token()` function is designed to locate the nearest golden 'token' and provide its distance (`distance`), angle (`rotation_y`), and code (`token_code`) as output, relative to the robot.   Within this function, the robot searches for golden tokens that have not been previously grabed (i.e., their code is absent from the `gold_token_list` collection).   If the function fails to discover a golden 'token', it will return `-1` as the output for all three parameters.   The code is presented below: 
 
- ```python
-def Gold_find():
-
-	dist =100
-
-
-	for Box in R.see():
-
-		if Box.dist<dist and Box.info.marker_type == MARKER_TOKEN_GOLD and Box.info.code not in GrabbedGold:   
-
-			dist = Box.dist
-			rot_y = Box.rot_y
-			Code = Box.info.code
-
-	if dist == 100:
-
-		return -1 , -1 ,-1
-
-	else:
-		return dist, rot_y ,Code
-```
-### Release_Loc_Find ###
-
-This function finds the closest drop location for the grabbed golden box. The drop location is the location of a box which was relocated before and put next to other golden boxes. This finction returns three outputs which are distance (`dist`), angle (`rot_y`), and code (`Code`) of the drop location with respect to the robot. In order to find the drop location, the function tries to find the code of the closest golden box which is also in the `GrabbedGold` list. The code for this function is as follows:
 
 ```python
-def Release_Loc_Find():
-
-	dist =100
+def search_gold_token():
+	distance = 100
+	rotation_y = 0
+	token_code = -1
 	
-	
-	for Box in R.see():
-	
-		if Box.dist<dist and Box.info.marker_type == MARKER_TOKEN_GOLD and Box.info.code in GrabbedGold:
+	for token in my_robot.see():
+		# if the token is unmarked and in the range of the robot, update the distance, angle and code of token
+		if token.dist<distance and token.info.marker_type == MARKER_TOKEN_GOLD and token.info.code not in gold_token_list:   
+			distance = token.dist
+			token_code = token.info.code
+			rotation_y = token.rot_y
 		
-			dist = Box.dist
-			rot_y = Box.rot_y
-			Code = Box.info.code
 			
-	if dist == 100:
+	if distance >= 100:
+	
+		return -1 , -1 , -1
+	
+	else:
+		return distance, rotation_y ,token_code
+```
+
+### find_token_location ###
+
+This function determines the nearest drop point for the acquired golden 'token'.   The drop location refers to the specific position where a 'token' was previously moved and placed adjacent to other golden tokens.   The function yields three outputs: the distance (`distance`), the angle (`rotation_y`), and the code (`token_code`) representing the drop location relative to the robot.   To determine the drop location, the function attempts to locate the code of the nearest golden 'token' that is also present in the `gold_token_list`.   The code for this function is presented below: 
+
+
+```python
+def find_token_location():
+	distance = 100
+	rotation_y = 0
+	token_code = -1
+	
+	for token in my_robot.see():
+		if token.dist<distance and token.info.marker_type == MARKER_TOKEN_GOLD and token.info.code in gold_token_list:
+			distance = token.dist
+			rotation_y = token.rot_y
+			token_code = token.info.code
+			
+	if distance == 100:
 	
 		return -1 , -1 ,-1
 	
 	else:
-		return dist, rot_y ,Code
+		return distance, rotation_y ,token_code
+
 ```
 
-### Gold_grab ###
+### gold_grab ###
 
-This function makes the robot move towards the closest golden box and it stops when reaching close wnough to the target box.  `a_th` and `d_th` are used to define when the robot reahes its target. If the robot is close enough to the target (`dist <= d_th`) the function exits and waits for further instructions from the user. If the distance is bigger than `d_th` and `-a_th < rot_y < a_th` The robot moves forward to reach the box. If the case is non  of these two, the robot should turn right or left accordingly to decrease its angular difference with the target and then start moving towards it. 
+This function enables the robot to navigate towards the nearest golden 'token' and halts once it reaches a proximity close enough to the target 'token'.    The `angle_threshold` and `distance_threshold` parameters are utilized to determine the conditions under which the robot achieves its target.   If the robot is inside the specified distance threshold from the destination (`distance <= distance_threshold`), the function terminates and remains in a state of readiness for additional instructions from the user.   If the distance exceeds the `distance_threshold` and the rotation_y value falls within the range of `-angle_threshold` to `angle_threshold`.   The robot advances in order to reach the 'token'.   If the scenario does not fall into any of these two categories, the robot should turn right or left in order to minimize the angle difference with the target, and then proceed to move towards it.
 
-```python
-def Gold_grab():
-
-	a = 1			
-	while a:
-
-	    dist, rot_y ,Code= Gold_find()  # we look for gold boxes
-
-	    if dist <= d_th: # if the robot is close enough to the box the while loop is stopped so it can grab the box 
-		print("Found a Gold one!")	 
-
-		a = 0
-	    elif -a_th<= rot_y <= a_th: # if the robot is well aligned with the token but not close, we go forward to reach it
-		print("Going forward!.")
-		drive(10, 0.5)
-	    elif rot_y < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right until it's aligned
-		print("Left a bit...")
-		turn(-2, 0.5)
-	    elif rot_y > a_th:
-		print("Right a bit...")
-		turn(+2, 0.5)
-```
-
-### Release_Grabbed_Gold ###
-
-The function `Release_Grabbed_Gold() ` helps the robot move toward the drop location for the box it grabbed. When the robot reaches the target location the fucntions exits and waits for the users instructions. The algorithm and the reasoning for this function is exactly like `Gold_grab`. the only difference is that in this function `Release_Loc_Find()` is used to find the drop location. The robot drops the box when it reaches `dist < d_th+0.2`. This value is added to `d_th` to avoid collision of the robot and the grabbed box with the box which is already at the target location.
 
 ```python
-def Release_Grabbed_Gold():
+def gold_grab():
 
-	a = 1			
-	while a:
-	    dist, rot_y ,Code= Release_Loc_Find()  # we look for closest gold box which was droped previously
+	token_flag = 1			
+	while token_flag:
+	
+	    distance, rotation_y ,token_code = search_gold_token()  # we look for gold tokens
 	    
-	    if dist <d_th+0.2:  # if the robot is close enough to the drop location the while loop is stopped so the robot can release the box
-	    
-	    # The value 0.2 is defined so that the robot releases the box it holds a small distance away from the target box
-		print("Found a drop location!")	 
+	    if distance <= distance_threshold: # if the robot is close enough to the token the while loop is stopped so it can grab the token 
+		interface("goldtoken") 
+		token_flag = 0
 		
-		a = 0
-	    elif -a_th<= rot_y <= a_th: # if the robot is well aligned with the drop location, we go forward
-		print("Going forward!.")
-		drive(10, 0.5)
-	    elif rot_y < -a_th: # if the robot is not well aligned with the drop location, we move it on the left or on the right
-		print("Left a bit...")
+	    elif -angle_threshold<= rotation_y <= angle_threshold: # if the robot is well aligned with the token but not close, we go forward to reach it
+		interface("forward") 
+		drive(my_speed, my_time)
+		
+	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the token, we move it on the left or on the right until it's aligned
+		interface("left") 
 		turn(-2, 0.5)
-	    elif rot_y > a_th:
-		print("Right a bit...")
+		
+	    elif rotation_y > angle_threshold:
+		interface("right") 
+		turn(+2, 0.5)
+
+```
+
+### release_golden_token ###
+
+The `release_golden_token()` method facilitates the robot's movement towards the designated drop spot for the 'token' it has acquired.   Upon reaching the designated place, the function terminates and remains in a state of readiness for the user's commands.   The technique and rationale behind this function are identical to that of `gold_grab`.   The sole distinction is in the utilization of the function `find_token_location()` to determine the drop location.   The robot releases the 'token' after it reaches a distance that is slightly greater than the distance threshold.   The purpose of adding this number to `distance_threshold` is to prevent the robot and the grabbed 'token' from colliding with the 'token' that is already at the target position. 
+
+
+```python
+def release_golden_token():
+
+	flag = 1			
+	while flag:
+	    distance , rotation_y , token_code = find_token_location()  # we look for closest gold token which was droped previously
+	    
+	    if distance < distance_threshold + 0.2:  # if the robot is close enough to the drop location the while loop is stopped so the robot can release the box
+	    # The value 0.2 is defined so that the robot releases the box it holds a small distance away from the target box
+		interface("find_location") 	 
+		flag = 0
+	    elif -angle_threshold <= rotation_y <= angle_threshold: # if the robot is well aligned with the drop location, we go forward
+		interface("forward")
+		drive(my_speed, 0.5)
+	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the drop location, we move it on the left or on the right
+		interface("left") 
+		turn(-2, 0.5)
+	    elif rotation_y > angle_threshold:
+		interface("right")
 		turn(+2, 0.5)
 ```
 ### main ###
 
-Having all the functions described in previous section, we can now describe the main code which makes the robot grab and relocate all the golden boxes until it gathers all boxes at one location. 
-At first, the closest golden box is found. This box will be considered as the first reference box. Consequently, the next box will be droped where this reference box is dropped. But it might not be the reference location for all next boxes, as the robot tries to find the closest drop location.
-There might be a case when the robot can not see a golden box around (`dist = -1`). In this case, the robot keeps turning and surching until it finds a golden box. The code for this section is described as follows:
+With the functions outlined in the preceding part, we can now explain the primary code responsible for the robot's ability to grasp and move all the golden tokens, ultimately gathering them in a single spot.
+Initially, the nearest golden 'token' is located.   This 'token' will be regarded as the initial reference 'token'.   As a result, the next 'token' will be discarded at the same location as this reference 'token' is discarded.   However, the reference position may not apply to all subsequent tokens, since the robot endeavors to locate the nearest drop-off point. 
+In certain instances, the robot may encounter a situation where it is unable to detect a golden 'token' within its vicinity (distance = -1).   In this scenario, the robot continuously rotates and scans its surroundings until it locates a valuable 'token' made of gold.   The code for this part is explained in the following manner: 
+
 
 ```python
 
-	dist,rot_y,Code= Gold_find() # The robot tries to find the closest golden box
-	while dist == -1:  # In case the robot can not find a golden box, it keeps turning and surching until it fids one 
-		print("I have to search more for a gold box!!")
+	distance , rotation_y , token_code = search_gold_token() # The robot tries to find the closest golden token
+	while distance == -1:  # In case the robot can not find a golden token, it keeps turning and surching until it finds one 
+		interface("no_gold_token")
 		turn(5,2)
-		dist , rot_y , Code = Gold_find()
+		distance , rotation_y , token_code = search_gold_token()
 ```
-After the box is found, the robot moves towards it by `Gold_grab()` and grabs the box using `R.grab()`. The box is dropped at a random location. After the box is dropped, its code is added to the `GrabbedGold` list. The robot moves backwards and turns to avoid collision with the dropped box:
+Once the 'token' is detected, the robot proceeds towards it using the `gold_grab()` function and seizes the 'token' by employing the `my_robot.grab()` method.   The 'token' is deposited in a randomly selected location.   Once the 'token' is discarded, its code is appended to the `gold_token_list`.   The robot retreats and maneuvers to evade collision with the fallen 'token': 
+
 
 ```python
-
-	Gold_grab()  
-	R.grab()
-	print("Just grabbed it")
-
+	# The robot moves toward the closest golden token and grabs it
+	gold_grab()  
+	my_robot.grab()
+	interface("grab")
+	
+	# The robot turns and moves forward to a random drop location and releases the token
 	turn(-10,1.1)
+	interface("deliver")
 	drive(10 , 19)
-	R.release()
-	print("Package Delivered")
-
-	drive(-10 , 2)
+	my_robot.release()
+	interface("release")
+	
+	# The robot moves backward a little to avoid hitting the token it dropped and turns 360 degrees to start looking for a new token
+	drive(-my_speed , 2)
 	turn(30,2)
+	
+	#The code of the token that was just dropped is added to the list so that the robot looks for other tokens in the next steps
 
-	GrabbedGold.append(Code)
+	gold_token_list.append(token_code)
 
 ```
-Afterwise a while loop is defined to make the robot reach all the remaining boxes and gather them next to each other. After each box is dropped its code is added to the `GrabbedGold` list and a new search starts.
+Subsequently, a while loop is established to ensure the robot reaches all the remaining tokens and consolidates them in close proximity.   Following the dropping of each 'token', its code is appended to the `gold_token_list` and a new search commences. 
 
 ```python
 
-	while len(GrabbedGold)< 6:
+	# The robot starts a search, grab, drop algorithm and keeps doing it until all tokens are next to each other (gold_token_list has the code of all tokens and its
+	# length is 6)
+	while len(gold_token_list)< 6:
 		
-		# The robot moves toward the closest golden box and grabs it
-		dist,rot_y,Code= Gold_find()
-		while dist == -1:
-			print("I have to search more for a gold box!!")
+		# The robot moves toward the closest golden token and grabs it
+		distance , rotation_y , token_code = search_gold_token()
+		while distance == -1:
+			interface("no_gold_token")
 			turn(5,2)
-			dist , rot_y , Code = Gold_find()
-		Gold_grab()
-		R.grab()
-		print("Just grabbed it")
+			distance , rotation_y , token_code = search_gold_token()
+		gold_grab()
+		my_robot.grab()
+		interface("grab")
 		
-		# The robot finds a drop location for the box it's holding
-		Newdist,Newrot_y,NewCode = Release_Loc_Find()
+		# The robot finds a drop location for the token it's holding
+		new_distance , new_rotation_y , new_token_code = find_token_location()
 		
-		# The robot keeps turning until it finds the group of boxes that were put together before and bribgs the box there
+		# The robot keeps turning until it finds the group of tokens that were put together before and bribgs the token there
 		# for the first round of the loop it brings the box to the reference box which was initially moved
-		while Newdist == -1:
-			print("I have to search more for a destination!!")
+		while new_distance == -1:
+			interface("find_destination")
 			turn(5,2)
-			Newdist , Newrot_y , NewCode = Release_Loc_Find()
-		Release_Grabbed_Gold()
-		R.release()
-		print("Package Delivered")
-		drive(-10,2)
+			new_distance , new_rotation_y , new_token_code = find_token_location()
+			
+		release_golden_token()
+		my_robot.release()
+		interface("release")
+		drive(-my_speed,2)
 		turn(30,2)
 		
 		# The code of the dropped box is added to the List before starting a new search and grap 
-		GrabbedGold.append(Code)
+		gold_token_list.append(token_code)
 
 ```
 [sr-api]: https://studentrobotics.org/docs/programming/sr/
+
+## Possible improvements
 
