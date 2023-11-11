@@ -45,8 +45,12 @@ The objective of this task is to collect all the golden 'tokens' and place them 
 ![](sr/Final_Config.png)
 > Figure2)Final configuration of the robot and environment
 
-![](sr/Flowchart.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/Drawing1.jpg" />
+</p>
 > Figure3) Flowchart of the algorithm
+
+
 
 ##Installing&running
 
