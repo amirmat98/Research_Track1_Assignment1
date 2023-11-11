@@ -5,7 +5,7 @@ Professor: [Carmine Recchiuto](https://github.com/CarmineD8 "Carmine Recchiuto")
 
 Student: [AmirMahdi Matin](https://github.com/amirmat98 "AmirMahdi Matin")  - 5884715 - Robotics Engineering 
 
-First assignment of Research Track 1 course
+# First assignment of Research Track 1 course
 -----------------------------------------------------------------------------------------
 
 # Table of Contents
