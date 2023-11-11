@@ -9,14 +9,14 @@ Student: [AmirMahdi Matin](https://github.com/amirmat98 "AmirMahdi Matin")  - 58
 -----------------------------------------------------------------------------------------
 
 # Table of Contents
-- [Aims of the Research_Track1_First_Assignment](#Aims of the Research_Track1_First_Assignment)
-- [Installing and running](#Installing and running)
+- [Aims of the Research_Track1_First_Assignment](#Aims-of-the-Research_Track1_First_Assignment)
+- [Installing and running](#Installing-and-running)
 - [Troubleshooting](#Troubleshooting)
 - [Robot_API](#Robot_API)
 	- [Motors](##Motors)
 	- [Grabber](##Grabber)
 	- [Vision](##Vision)
-- [How it works](#How it works)
+- [How it works](#How-it-works)
 	- [drive](##drive)
 	- [turn](##turn)
 	- [Gold_find](##Gold_find)
@@ -34,23 +34,25 @@ Student: [AmirMahdi Matin](https://github.com/amirmat98 "AmirMahdi Matin")  - 58
 Arena has undergone modifications for the first assignment of the Research Track I course. 
 The objective of this task is to collect all the golden 'tokens' and place them in close proximity to one another.   The environment, as well as the initial and final arrangement and formation of the 'tokens', are depicted in Figure 1 and Figure 2, respectively. 
 
-<p align="center">
-  <img src="https://github.com/PeymanPP5530/research-track-1-assignment1/blob/main/README%20images/initial.png?raw=true" />
-</p>
+
+<figure align="center">
+    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig1.jpg" alt="first configuration">
+    <figcaption>First configuration of the robot and environment</figcaption>
+</figure>
 
 
-![](sr/First_Config.png)
-> Figure1) First configuration of the robot and environment
-
-![](sr/Final_Config.png)
-> Figure2)Final configuration of the robot and environment
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/Drawing1.jpg" />
-</p>
-> Figure3) Flowchart of the algorithm
+<figure align="center">
+    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig4.jpg" alt="final configuration">
+    <figcaption>Final configuration of the robot and environmentt</figcaption>
+</figure>
 
 
+The diagram below illustrates the flowchart that represents the algorithm.     Additional clarification of the complexities of all functions will be provided in the following section.
+
+<figure align="center">
+    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/Drawing1.jpg" alt="flowchart">
+    <figcaption>Flowchart of the algorithm</figcaption>
+</figure>
 
 
 ## Installing and running
@@ -83,7 +85,7 @@ python2 run.py assignment.py
 The following simulation will be shown:
 
 <p align="center">
-  <img src="https://github.com/PeymanPP5530/research-track-1-assignment1/blob/main/README%20images/initial.png?raw=true" />
+  <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig1.jpg" />
 </p>
 
 
@@ -103,7 +105,7 @@ When utilizing Docker in lieu of Ubuntu, the simulator will function without enc
 
 The API for controlling a simulated robot is designed to be as similar as possible to the [SR API][sr-api].
 
-### Motors ###
+### Motors
 
 The simulated robot has two motors configured for skid steering, connected to a two-output [Motor Board](https://studentrobotics.org/docs/kit/motor_board). The left motor is connected to output `0` and the right motor to output `1`.
 
@@ -114,7 +116,7 @@ R.motors[0].m0.power = 25
 R.motors[0].m1.power = -25
 ```
 
-### Grabber ###
+### Grabber
 
 The robot is equipped with a grabber, capable of picking up a token which is in front of the robot and within 0.4 metres of the robot's centre. To pick up a token, call the `R.grab` method:
 
@@ -128,7 +130,7 @@ To drop the token, call the `R.release` method.
 
 Cable-tie flails are not implemented.
 
-### Vision ###
+### Vision
 
 To help the robot find tokens and navigate, each token has markers stuck to it, as does each wall. The `R.see` method returns a list of all the markers the robot can see, as `Marker` objects. The robot can only see markers which it is facing towards.
 
@@ -178,7 +180,7 @@ The defined functions for this assignment are as follows:
 
 Each function is described here and then the main code which uses all the functions for the goal is presented and described.
 
-### drive ###
+### drive
 
 The purpose of the drive(speed, seconds) function is to enable the robot to move in a straight line.   The function receives two inputs: `speed` and `seconds`.   The object will undergo motion at a velocity of `speed` for a period of `seconds`.   The object can move in the forward direction by assigning a positive value to the `speed` parameter, or it can move in the reverse direction by assigning a negative value to the `speed` parameter. 
 - 'speed': the desired magnitude of the robot's linear velocity.
@@ -195,7 +197,7 @@ def drive(speed, seconds):
 	
 ```
 
-### turn ###
+### turn
 
 The turn(speed, seconds) operations provide the robot with the capability to rotate in place.   The task is accomplished by setting the speeds of the right and left motors to be equal, but with opposite signs.   The function receives two inputs: `speed` and `seconds`.   The object will undergo linear motion at a velocity of `speed` for a period of `seconds`. 
 
@@ -208,7 +210,7 @@ def turn(speed, seconds):
 	my_robot.motors[0].m0.power = 0
 	my_robot.motors[0].m1.power = 0
 ```
-### search_gold_token ###
+### search_gold_token
 
 The `search_gold_token()` function is designed to locate the nearest golden 'token' and provide its distance (`distance`), angle (`rotation_y`), and code (`token_code`) as output, relative to the robot.   Within this function, the robot searches for golden tokens that have not been previously grabed (i.e., their code is absent from the `gold_token_list` collection).   If the function fails to discover a golden 'token', it will return `-1` as the output for all three parameters.   The code is presented below: 
 
@@ -235,7 +237,7 @@ def search_gold_token():
 		return distance, rotation_y ,token_code
 ```
 
-### find_token_location ###
+### find_token_location
 
 This function determines the nearest drop point for the acquired golden 'token'.   The drop location refers to the specific position where a 'token' was previously moved and placed adjacent to other golden tokens.   The function yields three outputs: the distance (`distance`), the angle (`rotation_y`), and the code (`token_code`) representing the drop location relative to the robot.   To determine the drop location, the function attempts to locate the code of the nearest golden 'token' that is also present in the `gold_token_list`.   The code for this function is presented below: 
 
@@ -261,7 +263,7 @@ def find_token_location():
 
 ```
 
-### gold_grab ###
+### gold_grab
 
 This function enables the robot to navigate towards the nearest golden 'token' and halts once it reaches a proximity close enough to the target 'token'.    The `angle_threshold` and `distance_threshold` parameters are utilized to determine the conditions under which the robot achieves its target.   If the robot is inside the specified distance threshold from the destination (`distance <= distance_threshold`), the function terminates and remains in a state of readiness for additional instructions from the user.   If the distance exceeds the `distance_threshold` and the rotation_y value falls within the range of `-angle_threshold` to `angle_threshold`.   The robot advances in order to reach the 'token'.   If the scenario does not fall into any of these two categories, the robot should turn right or left in order to minimize the angle difference with the target, and then proceed to move towards it.
 
@@ -292,7 +294,7 @@ def gold_grab():
 
 ```
 
-### release_golden_token ###
+### release_golden_token
 
 The `release_golden_token()` method facilitates the robot's movement towards the designated drop spot for the 'token' it has acquired.   Upon reaching the designated place, the function terminates and remains in a state of readiness for the user's commands.   The technique and rationale behind this function are identical to that of `gold_grab`.   The sole distinction is in the utilization of the function `find_token_location()` to determine the drop location.   The robot releases the 'token' after it reaches a distance that is slightly greater than the distance threshold.   The purpose of adding this number to `distance_threshold` is to prevent the robot and the grabbed 'token' from colliding with the 'token' that is already at the target position. 
 
@@ -318,7 +320,7 @@ def release_golden_token():
 		interface("right")
 		turn(+2, 0.5)
 ```
-### main ###
+### main
 
 With the functions outlined in the preceding part, we can now explain the primary code responsible for the robot's ability to grasp and move all the golden tokens, ultimately gathering them in a single spot.
 Initially, the nearest golden 'token' is located.   This 'token' will be regarded as the initial reference 'token'.   As a result, the next 'token' will be discarded at the same location as this reference 'token' is discarded.   However, the reference position may not apply to all subsequent tokens, since the robot endeavors to locate the nearest drop-off point. 
@@ -399,4 +401,5 @@ Subsequently, a while loop is established to ensure the robot reaches all the re
 [sr-api]: https://studentrobotics.org/docs/programming/sr/
 
 ## Possible improvements
+
 
