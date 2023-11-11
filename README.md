@@ -324,6 +324,13 @@ def release_golden_token():
 ### interface
 
 The 'interface' function is a technique of presentation that facilitates client communication. In this function, every command that must be displayed in an Imagine Monitor has been implemented.
+As illustrated in the figure below, a frame shows the operation of the interface function.
+
+<figure align="center">
+    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig5.jpg">
+    <figcaption>the robot's interface</figcaption>
+</figure>
+
 
 ### main
 
