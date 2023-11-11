@@ -52,6 +52,7 @@ The objective of this task is to collect all the golden 'tokens' and place them 
 
 
 
+
 ## Installing and running
 
 
@@ -158,7 +159,7 @@ for m in markers:
     elif m.info.marker_type == MARKER_ARENA:
         print " - Arena marker {0} is {1} metres away".format( m.info.offset, m.dist )
 ```
-##How it works
+## How it works
 
 The objective of this task is for the robot to arrange all the golden 'tokens' in close proximity to one another.   To enhance the code's fluidity and comprehensibility, certain functions are defined. 
 The initial two parameters are defined as thresholds.   The variables `angle_thresholds` and `distance_threshold` represent the threshold values for angles and distances, respectively.   These factors enable the robot to determine its proximity to the target, allowing it to seize the target when it reaches a suitable distance. 
