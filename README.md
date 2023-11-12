@@ -36,13 +36,13 @@ The objective of this task is to collect all the golden 'tokens' and place them 
 
 
 <figure align="center">
-    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig1.jpg" alt="first configuration">
+    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig01.png">
     <figcaption>First configuration of the robot and environment</figcaption>
 </figure>
 
 
 <figure align="center">
-    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig4.jpg" alt="final configuration">
+    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig03.png">
     <figcaption>Final configuration of the robot and environmentt</figcaption>
 </figure>
 
@@ -85,7 +85,7 @@ python2 run.py assignment.py
 The following simulation will be shown:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig1.jpg" />
+  <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig01.png" />
 </p>
 
 
@@ -327,7 +327,7 @@ The 'interface' function is a technique of presentation that facilitates client 
 As illustrated in the figure below, a frame shows the operation of the interface function.
 
 <figure align="center">
-    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig5.jpg">
+    <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig04.png">
     <figcaption>the robot's interface</figcaption>
 </figure>
 
