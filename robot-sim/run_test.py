@@ -5,7 +5,7 @@ import os
 import uuid
 
 script_to_run = "run.py"
-assignment_script = "Amani_assignment1.py"
+assignment_script = "Amir_similator.py"
 config_file = "games/two_colours_assignment.yaml"
 
 # Check if the number of tests is provided as a command-line argument

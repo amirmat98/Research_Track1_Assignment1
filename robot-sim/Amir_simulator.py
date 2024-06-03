@@ -120,54 +120,52 @@ def find_token_location():
 
 #--------------------------------------------------------------------------
 
-#This Function move towards the closet token nearby
+# This Function move towards the closet token nearby
 def gold_grab():
+    token_flag = 1
+    while token_flag:
+        distance, rotation_y, token_code = search_gold_token()  # we look for gold tokens
 
-	token_flag = 1			
-	while token_flag:
-	
-	    distance, rotation_y ,token_code = search_gold_token()  # we look for gold tokens
-	    
-	    if distance <= distance_threshold: # if the robot is close enough to the token the while loop is stopped so it can grab the token 
-		interface("goldtoken") 
-		token_flag = 0
-		
-	    elif -angle_threshold<= rotation_y <= angle_threshold: # if the robot is well aligned with the token but not close, we go forward to reach it
-		interface("forward") 
-		drive(my_speed, my_time)
-		
-	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the token, we move it on the left or on the right until it's aligned
-		interface("left") 
-		turn(-2, 0.5)
-		
-	    elif rotation_y > angle_threshold:
-		interface("right") 
-		turn(+2, 0.5)
-
+        if distance <= distance_threshold: 
+            # if the robot is close enough to the token the while loop is stopped so it can grab the token 
+            interface("goldtoken")
+            token_flag = 0
+        elif -angle_threshold <= rotation_y <= angle_threshold: 
+            # if the robot is well aligned with the token but not close, we go forward to reach it
+            interface("forward")
+            drive(my_speed, my_time)
+        elif rotation_y < -angle_threshold: 
+            # if the robot is not well aligned with the token, we move it on the left or on the right until it's aligned
+            interface("left")
+            turn(-2, 0.5)
+        elif rotation_y > angle_threshold:
+            interface("right")
+            turn(+2, 0.5)
 
 #--------------------------------------------------------------------------
 
-#This function to move towards the closest drop location ( The closest token which was previously moved and relocated)	
+# This function to move towards the closest drop location (The closest token which was previously moved and relocated)
 def release_golden_token():
+    flag = 1
+    while flag:
+        distance, rotation_y, token_code = find_token_location()  # we look for closest gold token which was dropped previously
 
-	flag = 1			
-	while flag:
-	    distance , rotation_y , token_code = find_token_location()  # we look for closest gold token which was droped previously
-	    
-	    if distance < distance_threshold + 0.2:  # if the robot is close enough to the drop location the while loop is stopped so the robot can release the box
-	    # The value 0.2 is defined so that the robot releases the box it holds a small distance away from the target box
-		interface("find_location") 	 
-		flag = 0
-	    elif -angle_threshold <= rotation_y <= angle_threshold: # if the robot is well aligned with the drop location, we go forward
-		interface("forward")
-		drive(my_speed, 0.5)
-	    elif rotation_y < -angle_threshold: # if the robot is not well aligned with the drop location, we move it on the left or on the right
-		interface("left") 
-		turn(-2, 0.5)
-	    elif rotation_y > angle_threshold:
-		interface("right")
-		turn(+2, 0.5)	
-
+        if distance < distance_threshold + 0.2:  
+            # if the robot is close enough to the drop location the while loop is stopped so the robot can release the box
+            # The value 0.2 is defined so that the robot releases the box it holds a small distance away from the target box
+            interface("find_location")
+            flag = 0
+        elif -angle_threshold <= rotation_y <= angle_threshold: 
+            # if the robot is well aligned with the drop location, we go forward
+            interface("forward")
+            drive(my_speed, 0.5)
+        elif rotation_y < -angle_threshold: 
+            # if the robot is not well aligned with the drop location, we move it on the left or on the right
+            interface("left")
+            turn(-2, 0.5)
+        elif rotation_y > angle_threshold:
+            interface("right")
+            turn(+2, 0.5)
 
 
 #--------------------------------------------------------------------------
