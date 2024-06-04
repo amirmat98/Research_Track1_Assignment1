@@ -1,10 +1,10 @@
 # Fdb version 3
-["biber main"] 1717495740 "main.bcf" "main.bbl" "main" 1717495754
-  "main.bcf" 1717495753 107031 6695bbd75f55f548c278e93de33d5ffe "pdflatex"
+["biber main"] 1717513182 "main.bcf" "main.bbl" "main" 1717515362
+  "main.bcf" 1717515362 107031 6695bbd75f55f548c278e93de33d5ffe "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1717495751 "c:/Amir/Uni/Course/Master/RT2/Assignments/03/Amirmat/Research_Track1_Assignment1/Report/main.tex" "main.pdf" "main" 1717495754
+["pdflatex"] 1717515359 "c:/Amir/Uni/Course/Master/RT2/Assignments/03/Amirmat/Research_Track1_Assignment1/Report/main.tex" "main.pdf" "main" 1717515362
   "C:/Users/Amir/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1698774880 595817 c358e6d7af8694093a75783279e8299c ""
   "C:/Users/Amir/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1666449377 10787539 4d50bb28529dfffd94c42303b735c140 ""
   "C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 1194fb36dfcb11d9ae9802f2b00b60a3 ""
@@ -128,16 +128,17 @@
   "C:/Users/Amir/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/Amir/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
   "C:/Users/Amir/AppData/Local/Programs/MiKTeX/tex/xelatex/xetexconfig/crop.cfg" 1169250894 305 57c5d049d73b46b49f97b41eaa29558b ""
-  "Main/Experiment.tex" 1717495594 2293 3e995a2b3c2b14647e8704c7dbe153fe ""
+  "Main/Experiment.tex" 1717515356 4448 a4b62eba5386ab456eb3e6abbc733547 ""
   "Main/Hypothesis.tex" 1717490872 3257 fc74a79acff10169a51001401d56f933 ""
   "Main/Introduction.tex" 1717490866 1085 04828c495e854bbb6f5049d451fa044b ""
+  "Res.png" 1717500000 92270 4243e270c22dfebfb039d6abcd411906 ""
   "Title/Unige-logo.jpeg" 1702635588 14734 f31c2123cf203ed687b8d2500f6a705f ""
   "Title/title.tex" 1717495644 2836 ab98dbbe1de115b4089b96f87583d42a ""
   "c:/Amir/Uni/Course/Master/RT2/Assignments/03/Amirmat/Research_Track1_Assignment1/Report/main.tex" 1717495736 1135 416fb1d35351177f6988c1e3048abb82 ""
-  "main.aux" 1717495753 1105 2bb085ee2478e769e85a4118d039bbb9 "pdflatex"
-  "main.bbl" 1717495748 486 5d0d039bf84e4f45a7144d280f172f5d "biber main"
-  "main.run.xml" 1717495753 2340 41ed025e32a824b998d2fcbe80d09338 "pdflatex"
-  "main.toc" 1717495753 488 3ece3fe5ea3e9e5db3299f637beb89b0 "pdflatex"
+  "main.aux" 1717515362 1259 1e762566388ed469ffc82fd7c4b19160 "pdflatex"
+  "main.bbl" 1717513186 486 5d0d039bf84e4f45a7144d280f172f5d "biber main"
+  "main.run.xml" 1717515362 2340 41ed025e32a824b998d2fcbe80d09338 "pdflatex"
+  "main.toc" 1717515362 488 3ece3fe5ea3e9e5db3299f637beb89b0 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"
