@@ -21,6 +21,9 @@ my_align_speed = 2 # align speed
 angle_threshold = 2.0 # angle threshold
 distance_threshold = 0.4 # distance threshold
 gold_token_list = [] # array to store the code of gold tokeens
+start_time = 0
+end_time = 0
+elapsed_time = 0
 
 #--------------------------------------------------------------------------
 
@@ -200,6 +203,7 @@ def search_gold_token():
 def main():
 
 	distance , rotation_y , token_code = search_gold_token() # The robot tries to find the closest golden token
+	start_time = time.time()
 	while distance == -1:  # In case the robot can not find a golden token, it keeps turning and surching until it finds one 
 		interface("no_gold_token")
 		turn(5,2)
@@ -257,6 +261,9 @@ def main():
 		
 		# The code of the dropped box is added to the List before starting a new search and grap 
 		gold_token_list.append(token_code)
+
+	end_time = time.time()
+	elapsed_time = end_time - start_time
 		
 #--------------------------------------------------------------------------
 
