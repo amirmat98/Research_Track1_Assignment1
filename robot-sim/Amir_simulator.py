@@ -9,6 +9,10 @@ from __future__ import print_function # for print()
 import os # for clearing the screen
 import time # for time.sleep()
 from sr.robot import * # for robot object
+import sys
+import token
+import os
+import signal
 
 #--------------------------------------------------------------------------
 
@@ -25,6 +29,15 @@ start_time = 0
 end_time = 0
 elapsed_time = 0
 
+#--------------------------------------------------------------------------
+
+def send_signal_to_run():
+    # Read the PID of run.py from the file
+    with open('run_pid.txt', 'r') as f:
+        run_pid = int(f.read().strip())
+
+    # Send a signal to run.py to shut it down
+    os.kill(run_pid, signal.SIGTERM)
 #--------------------------------------------------------------------------
 
 # drive the robot forward/backwards
@@ -263,7 +276,9 @@ def main():
 		gold_token_list.append(token_code)
 
 	end_time = time.time()
-	elapsed_time = end_time - start_time
+	# elapsed_time = end_time - start_time
+	send_signal_to_run()
+	sys.exit()
 		
 #--------------------------------------------------------------------------
 
