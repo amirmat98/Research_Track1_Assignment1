@@ -1,5 +1,21 @@
-\section{Experiment} \label{P3}
+\section{Experiment}\label{P3}
 \subsection{Theory}
+
+It is necessary to establish identical environments for both algorithms in order to fulfill the need of obtaining test data for the analysis. 
+ Each algorithm is put through its paces in a variety of scenarios, with 4, 6, and 8 golden boxes, in order to see how quickly it is able to collect all of the boxes and how accurately it can identify the boxes and collect them. 
+ The algorithms are run fifteen times in each environment setup, which results in a total of forty-five simulations for each algorithm. 
+ We did not employ random creation of the boxes since we wanted to ensure that each technique was implemented in the exact same setting and that the comparison was accurate. 
+ As a consequence of this, the placements of the boxes remain the same in an environment that contains the same quantity of boxes. It has been agreed that a paired T-test would be performed on the data that was extracted. 
+ When we simulated both algorithms 45 times with the same amount of randomly generated golden boxes in the environment, we could have also used a two-sample T-test. This would have allowed us to obtain the same results.
+
+The following is the recommended implementation of this method:
+\begin{itemize}
+    \item The difference between the two observations for each simulation pair of two algorithms should be calculated using the formula $d_i = y_i - x_i$. It is important to differentiate between positive and negative differences while doing this calculation.
+    \item The mean difference ($\bar{d}$) should be calculated.
+    \item The standard error of the mean difference can be calculated by calculating the standard deviation of the differences, which is denoted by $s_d$. The formula for calculating the standard error of the mean difference is $SE(\bar{d}) = \frac{s_d}{\sqrt{n}}$.
+    \item Determine the t-statistic, denoted as T, using the formula T = $\frac{\bar{d}}{SE(\bar{d})}$. When the null hypothesis is assumed to be true, this statistic conforms to a t distribution with $n - 1$ degrees of freedom.
+    \item Utilize t-distribution tables to compare your calculated value for T with the $t_{n-1}$ distribution. This will calculate the p-value for the paired t-test.
+\end{itemize}
 
 \subsection{Results}
 
