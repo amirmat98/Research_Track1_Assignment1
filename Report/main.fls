@@ -843,6 +843,13 @@ INPUT .\Res.png
 INPUT .\Res.png
 INPUT .\Res.png
 INPUT .\Res.png
+INPUT .\Graph.png
+INPUT .\Graph.png
+INPUT Graph.png
+INPUT .\Graph.png
+INPUT .\Graph.png
+INPUT .\Graph.png
+INPUT .\Graph.png
 INPUT main.aux
 INPUT main.run.xml
 OUTPUT main.run.xml

@@ -47,7 +47,24 @@ with the value of 1.699.
 \end{figure}
 
 \clearpage
+\begin{figure}[htbp]
+    \centering  % Optional: centers the image horizontally
+    \includegraphics{./Graph.png}  % Replace with your image file name
+    \caption{Graph for comparino between two codes}  % Optional: adds a caption below the image
+    \label{fig:test_results}  % Replace with a meaningful label name
+\end{figure}
+
 \par
+As can be seen by the gray line that is contained within the box on the plot, 
+my method has a median execution time that is equal to 56.87 seconds. 
+As a result of the very small interquartile range (IQR) for this method, 
+it is likely that there is less variation in execution times around the median.
+When compared to this, the method that my colleague developed demonstrates 
+a median execution time of 84.25 seconds, albeit having a far wider interquartile range. 
+It is possible for his algorithm to occasionally attain very quick execution speeds and 
+also swing to significantly slower executions, as indicated by the fact that its 
+total execution times range from approximately 48 seconds to 120 seconds.
+\\
 On the condition that the t value that we obtained is more than 1.699, 
 the null hypothesis (H0) is rejected and the alternative hypothesis (Ha) is accepted. 
 As can be observed, the t value that we obtained is far higher than 1.699, 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.10.22)  4 JUN 2024 17:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.10.22)  1 JUL 2024 17:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -615,7 +615,11 @@ Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 27.
  (C:\Users\Amir\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-) (main.aux)
+) (main.aux
+
+LaTeX Warning: Label `fig:test_results' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
@@ -742,27 +746,41 @@ File: ./Res.png Graphic file (type png)
 <use ./Res.png>
 Package pdftex.def Info: ./Res.png  used on input line 44.
 (pdftex.def)             Requested size: 439.03918pt x 697.76515pt.
- [5 <./Res.png>] [6
+ [5 <./Res.png>]
+<./Graph.png, id=36, 506.985pt x 309.885pt>
+File: ./Graph.png Graphic file (type png)
+<use ./Graph.png>
+Package pdftex.def Info: ./Graph.png  used on input line 52.
+(pdftex.def)             Requested size: 506.98375pt x 309.88423pt.
 
-]) 
+Overfull \hbox (23.28688pt too wide) in paragraph at lines 52--53
+ [][] 
+ []
+
+[6
+
+ <./Graph.png>]) 
 AED: lastpage setting LastPage
 (main.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 15471 strings out of 475385
- 281323 string characters out of 2777378
- 1136517 words of memory out of 3000000
- 36593 multiletter control sequences out of 15000+600000
+ 15478 strings out of 475385
+ 281429 string characters out of 2777378
+ 1136556 words of memory out of 3000000
+ 36599 multiletter control sequences out of 15000+600000
  497167 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,11n,77p,1217b,801s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Amir/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (7 pages, 227224 bytes).
+Output written on main.pdf (7 pages, 273032 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
+ 93 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
