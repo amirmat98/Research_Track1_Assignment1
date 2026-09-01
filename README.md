@@ -9,22 +9,26 @@ Student: [AmirMahdi Matin](https://github.com/amirmat98 "AmirMahdi Matin")  - 58
 -----------------------------------------------------------------------------------------
 
 # Table of Contents
-- [Aims of the Research_Track1_First_Assignment](#Aims-of-the-Research_Track1_First_Assignment)
-- [Installing and running](#Installing-and-running)
-- [Troubleshooting](#Troubleshooting)
-- [Robot_API](#Robot_API)
-	- [Motors](##Motors)
-	- [Grabber](##Grabber)
-	- [Vision](##Vision)
-- [How it works](#How-it-works)
-	- [drive](##drive)
-	- [turn](##turn)
-	- [Gold_find](##Gold_find)
-	- [Release_Loc_Find](##Release_Loc_Find)
-	- [Gold_grab](##Gold_grab)
-	- [Release_Grabbed_Gold](##Release_Grabbed_Gold)
-	- [main](##main)
-- [Possible improvements](#possible_improvements)
+- [Aims of the assignment](#aims-of-the-research_track1_first_assignment)
+- [Repository structure](#repository-structure)
+- [Installing and running](#installing-and-running)
+- [Troubleshooting](#troubleshooting)
+- [Robot API](#robot-api)
+  - [Motors](#motors)
+  - [Grabber](#grabber)
+  - [Vision](#vision)
+- [How it works](#how-it-works)
+  - [drive](#drive)
+  - [turn](#turn)
+  - [search_gold_token](#search_gold_token)
+  - [find_token_location](#find_token_location)
+  - [gold_grab](#gold_grab)
+  - [release_golden_token](#release_golden_token)
+  - [interface](#interface)
+  - [main](#main)
+- [Possible improvements](#possible-improvements)
+- [Branches](#branches)
+- [Credits and license](#credits-and-license)
 
 
 
@@ -43,7 +47,7 @@ The objective of this task is to collect all the golden 'tokens' and place them 
 
 <figure align="center">
     <img src="https://raw.githubusercontent.com/amirmat98/Research_Track1_Assignment1/main/robot-sim/sr/fig03.png">
-    <figcaption>Final configuration of the robot and environmentt</figcaption>
+    <figcaption>Final configuration of the robot and environment</figcaption>
 </figure>
 
 
@@ -55,6 +59,28 @@ The diagram below illustrates the flowchart that represents the algorithm.     A
 </figure>
 
 
+## Repository structure
+
+```
+robot-sim/
+├── assignment.py                     # the solution: entry point run by run.py
+├── run.py                            # simulator launcher (Student Robotics)
+├── games/two_colours_assignment.yaml # arena config used by this assignment
+├── sr/                               # Student Robotics simulator package
+│   ├── robot/                        # robot model, vision, physics, display
+│   └── robot/arenas/                 # arena definitions
+├── source/                           # partial modular refactor (see note below)
+└── main.py                           # partial modular refactor (see note below)
+```
+
+`assignment.py` is self-contained and is the file to run. `main.py` and the
+modules under `source/` are an unfinished attempt to split that same solution
+into one file per function: `source/global_variables.py` is empty, the modules
+reference names they never import (`my_robot`, `time`, `MARKER_TOKEN_GOLD`,
+`gold_token_list`), and `source/__init__.py` imports a module named
+`search_golden_token` while the file on disk is `search_gold_token.py`. They are
+kept for history and are not executable as-is.
+
 ## Installing and running
 
 
@@ -64,7 +90,7 @@ Pygame, unfortunately, can be tricky (though [not impossible](http://askubuntu.c
 
 **Open a shell and execute the following command:**
 ```shell
-sudo apt-get udpate
+sudo apt-get update
 sudo apt-get install git
 sudo apt-get install python-dev python-pip python-pygame
 sudo pip install pypybox2d
@@ -76,7 +102,7 @@ git clone https://github.com/amirmat98/Research_Track1_Assignment1.git
 ```
 Then, move to the simulator folder:
 ```shell
-cd ~/Research_tTrack1_Assignment1/robot-sim
+cd ~/Research_Track1_Assignment1/robot-sim
 ```
 Now, run the simulation:
 ```shell
@@ -101,7 +127,7 @@ On Ubuntu, this can be accomplished by:
 
 When utilizing Docker in lieu of Ubuntu, the simulator will function without encountering any errors. 
 
-##Robot_API
+## Robot API
 
 The API for controlling a simulated robot is designed to be as similar as possible to the [SR API][sr-api].
 
@@ -414,4 +440,52 @@ Subsequently, a while loop is established to ensure the robot reaches all the re
 
 ## Possible improvements
 
+The controller is deliberately simple: it is purely reactive and open-loop in
+time. Concrete limitations visible in `assignment.py`:
 
+- **Motion is timed, not measured.** `drive()` and `turn()` set motor power,
+  `time.sleep()` for a fixed duration, then stop. There is no odometry or
+  closed-loop feedback, so travel distance and turn angle drift with the
+  simulation timestep. Proportional control on `rot_y` and `dist` would remove
+  the fixed `turn(±2, 0.5)` nudges.
+- **The token count is hardcoded.** `main()` stops at `len(gold_token_list) < 6`,
+  which matches `TOKENS_PER_CIRCLE = 6` in the assignment arena. Deriving the
+  count from the arena, or terminating when no unvisited token remains, would
+  generalise it.
+- **The first drop-off point is arbitrary.** The first token is carried by a
+  fixed `turn(-10, 1.1)` then `drive(10, 19)` before being released, so the
+  cluster forms wherever that blind manoeuvre ends up.
+- **No obstacle avoidance.** Nothing checks for walls or for tokens between the
+  robot and its target; the robot can push a token it is not tracking.
+- **`my_turn_speed` and `my_align_speed` are declared but never used** — turns
+  use the literals `2`, `5`, `10` and `30` instead.
+- **String comparison uses `is` rather than `==`** in `interface()`. This works
+  only because CPython interns identifier-like string literals; `==` is correct.
+- **Python 2 only.** `assignment.py` mixes tabs and spaces for indentation,
+  which Python 3 rejects with a `TabError`, and `run.py` calls `raw_input()`.
+
+## Branches
+
+The interesting work is not all on `main`:
+
+- **`main`** — this assignment: the controller, the simulator, and this README.
+- **`Statistical-Analysis`** — a later *Research Track 2, Assignment 3* study
+  built on top of this controller. It adds a LaTeX report (`Report/main.pdf`),
+  a batch harness (`robot-sim/run_test.py`) that runs the simulation N times
+  and logs execution times, and raw results (`Report/Res.xlsx`). The report
+  compares the runtime and success rate of this controller against a
+  fellow student's (**Vahid**) implementation of the same task.
+
+The two branches have deliberately not been merged.
+
+## Credits and license
+
+- The simulator in `robot-sim/sr/` is **[robot-sim](https://github.com/srobo/robot-sim)
+  by [Student Robotics](https://studentrobotics.org)** — Harry Cutts, Samson
+  Danziger, Peter Law and Alistair Lynn — with arenas and exercises modified for
+  the Research Track I course by
+  [Prof. Carmine Recchiuto](https://github.com/CarmineD8).
+- The assignment solution (`assignment.py`) is by
+  [AmirMahdi Matin](https://github.com/amirmat98).
+- Released under the BSD 3-Clause license; see [LICENSE](LICENSE) and the full
+  upstream notice in [robot-sim/LICENSE.md](robot-sim/LICENSE.md).
